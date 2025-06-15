@@ -50,12 +50,6 @@ export default function RootLayout({
                   >
                     Ana Sayfa
                   </Link>
-                  <Link 
-                    href="/demo" 
-                    className="text-sm font-medium hover:text-primary transition-colors"
-                  >
-                    Code Demo
-                  </Link>
                   <ThemeToggle />
                 </nav>
               </div>

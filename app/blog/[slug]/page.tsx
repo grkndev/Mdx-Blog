@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { getPostBySlug, getAllPosts } from '@/lib/blog'
 import { MDXContent } from '@/lib/mdx'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -76,10 +78,47 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <h1 className="text-4xl font-bold mb-4 leading-tight">
             {post.title}
           </h1>
-          
+
           <p className="text-xl text-muted-foreground mb-6">
             {post.description}
           </p>
+
+          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+
+
+            <span>Yazar:</span>
+
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Link href="/users/grkndev" className='flex items-center gap-1'>
+                  {/* <Button variant={"link"} > */}
+                  <Avatar className='w-6 h-6'>
+                    <AvatarImage src="https://github.com/grkndev.png" />
+                    <AvatarFallback>GD</AvatarFallback>
+                  </Avatar>
+                  <span className="text-sm font-bold ">GrknDev</span>
+                  {/* </Button> */}
+                </Link>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80">
+                <div className="flex justify-between gap-4">
+                  <Avatar>
+                    <AvatarImage src="https://github.com/grkndev.png" />
+                    <AvatarFallback>GD</AvatarFallback>
+                  </Avatar>
+                  <div className="space-y-1">
+                    <h4 className="text-sm font-semibold">@grkndev</h4>
+                    <p className="text-sm">
+                      Full time developer, part time human.
+                    </p>
+                    <div className="text-muted-foreground text-xs">
+                      381 followers
+                    </div>
+                  </div>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          </div>
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
             <div className="flex items-center gap-2">
@@ -117,7 +156,42 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </article>
 
       {/* Footer */}
-      <footer className="mt-12 pt-8 border-t">
+      <footer className="mt-12 pt-8 border-t flex flex-col items-center gap-16">
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-muted-foreground">Yazar</span>
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Link href="/users/grkndev" className='flex items-center gap-2'>
+                {/* <Button variant={"link"} > */}
+                <Avatar>
+                  <AvatarImage src="https://github.com/grkndev.png" />
+                  <AvatarFallback>GD</AvatarFallback>
+                </Avatar>
+                <span className="text-lg font-bold underline-offset-4 underline">GrknDev</span>
+                {/* </Button> */}
+              </Link>
+            </HoverCardTrigger>
+            <HoverCardContent className="w-80">
+              <div className="flex justify-between gap-4">
+                <Avatar>
+                  <AvatarImage src="https://github.com/grkndev.png" />
+                  <AvatarFallback>GD</AvatarFallback>
+                </Avatar>
+                <div className="space-y-1">
+                  <h4 className="text-sm font-semibold">@grkndev</h4>
+                  <p className="text-sm">
+                    Full time developer, part time human.
+                  </p>
+                  <div className="text-muted-foreground text-xs">
+                    381 followers
+                  </div>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
+
+
+        </div>
         <div className="flex justify-center">
           <Button asChild>
             <Link href="/" className="flex items-center gap-2">
