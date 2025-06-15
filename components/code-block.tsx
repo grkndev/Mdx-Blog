@@ -95,7 +95,7 @@ export function CodeBlock({ code, language, filename, showLineNumbers = true }: 
         </TooltipProvider>
       </div>
       
-      <div className="p-4 overflow-x-auto">
+      <div className="p-4 overflow-x-auto max-h-96 overflow-y-auto">
         <pre className="text-sm leading-relaxed font-mono text-foreground">
           {code.split('\n').map((line, index) => (
             <div key={index} className="block min-h-[1.5rem]">
