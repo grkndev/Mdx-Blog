@@ -121,38 +121,101 @@
   }
 }
 
-/* Prism Syntax Highlighting */
-@import 'prismjs/themes/prism.css';
 
-/* Dark theme override for code blocks */
-@media (prefers-color-scheme: dark) {
-  .dark {
-    --prism-foreground: #f8f8f2;
-    --prism-background: #2d2d2d;
-    --prism-comment: #6272a4;
-    --prism-string: #f1fa8c;
-    --prism-literal: #bd93f9;
-    --prism-keyword: #ff79c6;
-    --prism-function: #50fa7b;
-    --prism-deleted: #ff5555;
-    --prism-class: #f8f8f2;
-    --prism-builtin: #50fa7b;
-  }
+
+.code-block-content {
+  @apply relative overflow-x-auto;
 }
 
-/* Code block styling */
-pre[class*="language-"] {
-  @apply bg-muted border rounded-lg p-4 overflow-x-auto;
+.code-block-pre {
+  @apply bg-transparent p-4 m-0 text-sm leading-relaxed;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
 }
 
-code[class*="language-"] {
-  @apply text-sm;
+.code-block-line {
+  @apply block min-h-[1.5rem] px-2 -mx-2;
 }
 
-/* Inline code styling */
-:not(pre) > code[class*="language-"] {
-  @apply bg-muted px-2 py-1 rounded text-sm;
-  white-space: normal;
+.code-block-line:hover {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+.code-block-line-number {
+  @apply inline-block w-8 text-right mr-4 text-gray-400 dark:text-gray-500 select-none;
+  font-variant-numeric: tabular-nums;
+}
+
+.code-block-line-content {
+  @apply text-gray-800 dark:text-gray-100;
+}
+
+/* Syntax highlighting colors for light mode */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+.token.punctuation {
+  @apply text-gray-600 dark:text-gray-300;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  @apply text-red-600 dark:text-red-400;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  @apply text-yellow-600 dark:text-yellow-400;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.token.function,
+.token.class-name {
+  @apply text-purple-600 dark:text-purple-400;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  @apply text-orange-600 dark:text-orange-400;
+}
+
+.token.important,
+.token.bold {
+  @apply font-bold;
+}
+
+.token.italic {
+  @apply italic;
+}
+
+.token.entity {
+  @apply cursor-help;
 }
 
 /* Blog specific styles */
@@ -178,11 +241,11 @@ code[class*="language-"] {
 }
 
 .prose code {
-  @apply bg-muted px-2 py-1 rounded text-sm;
+  @apply bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-2 py-1 rounded text-sm font-mono;
 }
 
 .prose pre {
-  @apply bg-muted border rounded-lg;
+  @apply bg-transparent border-0 p-0 m-0;
 }
 
 .prose blockquote {

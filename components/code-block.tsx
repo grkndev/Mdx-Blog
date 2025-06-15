@@ -1,21 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Check, Copy } from 'lucide-react'
-import { highlight, languages } from 'prismjs'
-
-// Import required language grammars
-import 'prismjs/components/prism-javascript'
-import 'prismjs/components/prism-typescript'
-import 'prismjs/components/prism-jsx'
-import 'prismjs/components/prism-tsx'
-import 'prismjs/components/prism-python'
-import 'prismjs/components/prism-bash'
-import 'prismjs/components/prism-json'
-import 'prismjs/components/prism-css'
-import 'prismjs/components/prism-sql'
 
 interface CodeBlockProps {
     code: string
@@ -24,129 +10,105 @@ interface CodeBlockProps {
     showLineNumbers?: boolean
 }
 
+const languageIcons: Record<string, string> = {
+    javascript: '🟨',
+    typescript: '🔷',
+    tsx: '⚛️',
+    jsx: '⚛️',
+    python: '🐍',
+    css: '🎨',
+    html: '🌐',
+    json: '📄',
+    sql: '🗃️',
+    bash: '💻',
+    shell: '💻',
+    markdown: '📝',
+    default: '📝'
+}
+
+const getLanguageIcon = (language: string): string => {
+    return languageIcons[language.toLowerCase()] || languageIcons.default
+}
+
+// Map common language aliases
 const languageMap: Record<string, string> = {
     js: 'javascript',
     ts: 'typescript',
-    jsx: 'jsx',
-    tsx: 'tsx',
     py: 'python',
     sh: 'bash',
-    bash: 'bash',
-    json: 'json',
-    css: 'css',
-    sql: 'sql',
+    shell: 'bash',
+    md: 'markdown'
 }
 
-const getLanguageIcon = (language: string) => {
-    switch (language.toLowerCase()) {
-        case 'javascript':
-        case 'js':
-            return '🟨'
-        case 'typescript':
-        case 'ts':
-            return '🔷'
-        case 'python':
-        case 'py':
-            return '🐍'
-        case 'bash':
-        case 'sh':
-            return '💻'
-        case 'json':
-            return '📄'
-        case 'css':
-            return '🎨'
-        case 'html':
-            return '🌐'
-        default:
-            return '📝'
-    }
+const getMappedLanguage = (language: string): string => {
+    const lang = language.toLowerCase()
+    return languageMap[lang] || lang
 }
 
-export function CodeBlock({
-    code,
-    language,
-    filename,
-    showLineNumbers = true
-}: CodeBlockProps) {
-    const [copied, setCopied] = useState(false)
+export function CodeBlock({ code, language, filename, showLineNumbers = true }: CodeBlockProps) {
+  const [copied, setCopied] = useState(false)
 
-    const normalizedLanguage = languageMap[language.toLowerCase()] || language.toLowerCase()
-    const grammar = languages[normalizedLanguage]
-
-    const highlightedCode = grammar
-        ? highlight(code, grammar, normalizedLanguage)
-        : code
-
-    const lines = code.split('\n')
-    const maxLineNumber = lines.length
-    const lineNumberWidth = Math.max(2, maxLineNumber.toString().length)
-
-    const copyToClipboard = async () => {
-        try {
-            await navigator.clipboard.writeText(code)
-            setCopied(true)
-            setTimeout(() => setCopied(false), 2000)
-        } catch (err) {
-            console.error('Failed to copy code:', err)
-        }
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy code:', err)
     }
+  }
 
-    return (
-        <div className="group relative rounded-lg border bg-muted/50 overflow-hidden my-6">
-            {/* Header */}
-            <div className="absolute right-4 top-4 bg-muted border rounded-lg">
+  const languageIcon = getLanguageIcon(language)
 
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={copyToClipboard}
-                                className="h-8 w-8 p-0 "
-                            >
-                                {copied ? (
-                                    <Check className="h-4 w-4 text-green-500" />
-                                ) : (
-                                    <Copy className="h-4 w-4" />
-                                )}
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <p>{copied ? 'Kopyalandı!' : 'Kopyala'}</p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-
-            </div>
-
-            {/* Code Content */}
-            <div className="overflow-auto max-h-96">
-                <div className="flex p-4 gap-4">
-                    {/* Line Numbers */}
-                    {showLineNumbers && (
-                        <div className="flex-shrink-0  text-right bg-muted/30 ">
-                            <div className="text-xs text-muted-foreground/60 font-mono leading-6">
-                                {lines.map((_, index) => (
-                                    <div key={index + 1} className="h-6">
-                                        {(index + 1).toString().padStart(lineNumberWidth, ' ')}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Code */}
-                    <div className="flex-1 border-none">
-                        <pre className="text-sm font-mono leading-6 overflow-visible border-none ">
-                            <code
-                                className={`language-${normalizedLanguage}`}
-                                dangerouslySetInnerHTML={{ __html: highlightedCode }}
-                            />
-                        </pre>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="bg-muted border border-border rounded-lg overflow-hidden my-6">
+      <div className="bg-muted/50 border-b border-border px-4 py-2 flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <span className="text-lg">{languageIcon}</span>
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+            {filename || language}
+          </span>
         </div>
-    )
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={copyToClipboard}
+                className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-md"
+                aria-label="Copy code to clipboard"
+              >
+                {copied ? (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                )}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{copied ? 'Copied!' : 'Copy code'}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+      
+      <div className="p-4 overflow-x-auto">
+        <pre className="text-sm leading-relaxed font-mono text-foreground">
+          {code.split('\n').map((line, index) => (
+            <div key={index} className="block min-h-[1.5rem]">
+              {showLineNumbers && (
+                <span className="inline-block w-8 text-right mr-4 text-muted-foreground select-none">
+                  {index + 1}
+                </span>
+              )}
+              <span>{line || ' '}</span>
+            </div>
+          ))}
+        </pre>
+      </div>
+    </div>
+  )
 } 
