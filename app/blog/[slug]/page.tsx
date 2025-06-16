@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
-import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react'
+import { ArrowLeft, Calendar, Clock, Tag, UserRound } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -85,8 +85,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
 
-
-            <span>Yazar:</span>
+            <div className='flex items-center gap-1'>
+              <UserRound className='h-4 w-4' />
+              <span>Yazar:</span>
+            </div>
 
             <HoverCard>
               <HoverCardTrigger asChild>
