@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { tr } from 'date-fns/locale'
-import { ArrowLeft, Calendar, Clock, Tag, UserRound } from 'lucide-react'
+import { ArrowLeft, BadgeCheck, Calendar, Clock, Star, Tag, UserRound } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -10,6 +10,8 @@ import { getPostBySlug, getAllPosts } from '@/lib/blog-optimized'
 import { MDXContentOptimized } from '@/components/mdx-content-optimized'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
+import { TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Tooltip } from '@/components/ui/tooltip'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -109,7 +111,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <AvatarFallback>GD</AvatarFallback>
                   </Avatar>
                   <div className="space-y-1">
-                    <h4 className="text-sm font-semibold">@grkndev</h4>
+                    <div className='flex flex-row gap-1'>
+                      <h4 className="text-sm font-semibold">Gürkan Çiloğlu</h4>
+                      <div className='flex flex-row '>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <BadgeCheck className='w-4 h-4 fill-blue-500 text-white' />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Doğrulanmış Üye</p>
+                          </TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Star className='w-4 h-4 fill-yellow-500 text-white' />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Modern Blog Star</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                    </div>
+                    <h4 className="text-xs font-semibold text-muted-foreground">@grkndev</h4>
                     <p className="text-sm">
                       Full time developer, part time human.
                     </p>
