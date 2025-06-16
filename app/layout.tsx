@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LoadingBar } from "@/components/loading-bar";
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="tr" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider>
+          <LoadingBar />
           <div className="min-h-screen bg-background">
             {/* Header */}
             <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
