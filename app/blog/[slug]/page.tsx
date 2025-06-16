@@ -6,8 +6,8 @@ import { ArrowLeft, Calendar, Clock, Tag, UserRound } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { getPostBySlug, getAllPosts } from '@/lib/blog'
-import { MDXContent } from '@/lib/mdx'
+import { getPostBySlug, getAllPosts } from '@/lib/blog-optimized'
+import { MDXContentOptimized } from '@/components/mdx-content-optimized'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 
@@ -152,9 +152,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         {/* Article Content */}
-        <div className="prose prose-gray dark:prose-invert max-w-none">
-          <MDXContent source={post.content} />
-        </div>
+        <MDXContentOptimized source={post.content} />
       </article>
 
       {/* Footer */}

@@ -51,7 +51,7 @@ export function SearchBar({ posts, onSearchResults, allTags }: SearchBarProps) {
 
   // Trigger search when query or tags change
   useEffect(() => {
-    const timer = setTimeout(handleSearch, 300)
+    const timer = setTimeout(handleSearch, 100)
     return () => clearTimeout(timer)
   }, [handleSearch])
 
@@ -85,7 +85,7 @@ export function SearchBar({ posts, onSearchResults, allTags }: SearchBarProps) {
             <Badge
               key={tag}
               variant={selectedTags.includes(tag) ? "default" : "outline"}
-              className="cursor-pointer hover:bg-primary/80 transition-colors"
+              className="cursor-pointer hover:bg-muted/80 transition-colors"
               onClick={() => handleTagClick(tag)}
             >
               {tag}

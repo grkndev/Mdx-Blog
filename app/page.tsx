@@ -1,5 +1,5 @@
 import { BlogListClient } from '@/components/blog-list-client'
-import { getAllPosts, getAllTags } from '@/lib/blog'
+import { getAllPosts, getAllTags } from '@/lib/blog-optimized'
 
 export default async function HomePage() {
   const [posts, allTags] = await Promise.all([
