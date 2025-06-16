@@ -46,8 +46,8 @@ export default function RootLayout({
                   Modern Blog
                 </Link>
                 <nav className="flex items-center gap-6">
-                  <Link 
-                    href="/" 
+                  <Link
+                    href="/"
                     className="text-sm font-medium hover:text-primary transition-colors"
                   >
                     Ana Sayfa
@@ -68,7 +68,7 @@ export default function RootLayout({
                 <div className="text-center text-sm text-muted-foreground">
                   <p>&copy; 2025 Modern Blog. Tüm hakları saklıdır.</p>
                   <p className="mt-2">
-                    Next.js ve Shadcn UI ile ❤️ ile yapılmıştır.
+                    <Link href="https://github.com/grkndev" className="text-primary hover:underline">GrknDev</Link>
                   </p>
                 </div>
               </div>
